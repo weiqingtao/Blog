@@ -115,7 +115,6 @@ module.exports = {
       ctx.redirect('/forgetpass')
       return
     }
-    console.log("4444444444444444444444")
     let query = { name: name };
     let update = await UserModel.update(query, { password: newpasswordsalt });
     console.log(update)
