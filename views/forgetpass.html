@@ -1,0 +1,32 @@
+{% extends 'views/base.html' %} {% block body %}
+{% include "views/components/header.html" %}
+<div class="container">
+    <div class="box sign-box">
+        <form action="/forgetpass" method="POST">
+            <div class="field">
+                <label class="label">用户名</label>
+                <div class="control">
+                    <input class="input" name="user" type="text" placeholder="请输入用户名">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">旧密码</label>
+                <div class="control">
+                    <input class="input" name="oldpassword" type="password" placeholder="请输入旧密码">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">新密码</label>
+                <div class="control">
+                    <input class="input" name="newpassword" type="password" placeholder="请输入新密码">
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-primary">确认重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

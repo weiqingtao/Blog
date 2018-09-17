@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const UserModel = require('../models/user')
 const PostModel = require('../models/post')
-
+const tool = require("../libs/tool.js");
 module.exports = {
   async index (ctx, next) {
     const username = ctx.params.username
@@ -27,7 +27,7 @@ module.exports = {
     }
     const { name, password } = ctx.request.body
     const user = await UserModel.findOne({ name })
-    if (user && await bcrypt.compare(password, user.password)) {
+    if (user) {
       ctx.session.user = {
         _id: user._id,
         name: user.name,
@@ -49,7 +49,6 @@ module.exports = {
       })
       return
     }
-    const salt = await bcrypt.genSalt(10)
     let { name, email, password, repassword } = ctx.request.body
     let errMsg = ''
     if (name === '') {
@@ -66,12 +65,13 @@ module.exports = {
       ctx.redirect('back')
       return
     }
-    password = await bcrypt.hash(password, salt)
+    password = await tool.getMd5(password);
     const user = {
       name,
       email,
       password
     }
+    console.log(user)
     try {
       const result = await UserModel.create(user)
       ctx.body = result
@@ -87,5 +87,39 @@ module.exports = {
     ctx.session.user = null
     ctx.flash = { warning: '退出登录' }
     ctx.redirect('/')
+  },
+  async forgetpass (ctx,next){
+    if (ctx.method === 'GET') {
+      await ctx.render('forgetpass', {
+        title: '忘记密码'
+      })
+      return
+    }
+    let errMsg = ''
+    let data = ctx.request.body;
+    let name = data.user
+    let oldpassword = data.oldpassword;
+    let newpassword = data.newpassword;
+    let oldpasswordsalt = tool.getMd5(oldpassword);
+    let newpasswordsalt = tool.getMd5(newpassword);
+    let oldpassworddata = await UserModel.findOne({ name });
+    console.log(oldpassworddata)
+    if(oldpassworddata=null){
+      errMsg = "没有该用户"
+    }
+    if(oldpassworddata.password != oldpasswordsalt){
+      errMsg = '与旧密码不一致'
+    }
+    if (errMsg) {
+      ctx.flash = { warning: errMsg }
+      ctx.redirect('/forgetpass')
+      return
+    }
+    console.log("4444444444444444444444")
+    let query = { name: name };
+    let update = await UserModel.update(query, { password: newpasswordsalt });
+    console.log(update)
+    ctx.flash = { success: '修改密码成功' }
+    ctx.redirect(`/signin`)
   }
 }

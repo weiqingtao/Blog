@@ -42,7 +42,8 @@ module.exports = (app) => {
   router.get('/category/new', isAdmin, require('./category').create)
   router.post('/category/new', isAdmin, require('./category').create)
   router.get('/category/:id/delete', isAdmin, require('./category').destroy)
-
+  router.get('/forgetpass', require('./user').forgetpass)
+  router.post('/forgetpass', require('./user').forgetpass)
   app
     .use(router.routes())
     .use(router.allowedMethods())
