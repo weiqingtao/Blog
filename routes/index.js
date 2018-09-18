@@ -22,7 +22,10 @@ async function isAdmin (ctx, next) {
 
 module.exports = (app) => {
   router.get('/', require('./posts').index)
-  router.get('/about', require('./about').index)
+  router.get('/userlist', require('./userlist').list)
+  router.get('/user/:id/delete', isAdmin, require('./userlist').destroy)
+  router.get('/user/new', isAdmin, require('./userlist').create)
+  router.post('/user/new', isAdmin, require('./userlist').create)
   router.get('/user/:username', require('./user').index)
   router.get('/signup', require('./user').signup)
   router.post('/signup', require('./user').signup)

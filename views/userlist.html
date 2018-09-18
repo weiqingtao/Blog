@@ -1,0 +1,35 @@
+{% extends 'views/base.html' %}
+{% block body %}
+{% include "views/components/header.html" %}
+<div class="container margin-top">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+                <a href="/user/new" class="button is-small is-primary">新建用户</a>
+            <table class="table margin-top is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>用户名</th>
+                        <th>邮箱</th>
+                        <th>是否是管理员</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.isAdmin}}</td>
+                        <td>
+                            <a href="/user/{{user._id}}/delete" class="button is-small is-danger">删除</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
