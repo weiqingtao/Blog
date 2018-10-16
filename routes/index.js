@@ -24,6 +24,8 @@ module.exports = (app) => {
   router.get('/', require('./posts').index)
   router.get('/userlist', require('./userlist').list)
   router.get('/user/:id/delete', isAdmin, require('./userlist').destroy)
+  router.get('/user/:id/edit', isAdmin, require('./userlist').edit)
+  router.get('/userlist/exportExcel', isAdmin, require('./userlist').exportExcel)
   router.get('/user/new', isAdmin, require('./userlist').create)
   router.post('/user/new', isAdmin, require('./userlist').create)
   router.get('/user/:username', require('./user').index)
