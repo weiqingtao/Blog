@@ -1,5 +1,7 @@
 const UserModel = require('../models/user')
 const tool = require("../libs/tool.js");
+const xlsx = require('node-xlsx');
+const fs = require("fs");
 module.exports = {
   async create(ctx, next) {
     if (ctx.method === 'GET') {
@@ -74,5 +76,49 @@ module.exports = {
       success: '删除用户成功'
     }
     ctx.redirect('/userlist')
+  },
+  async edit(ctx,next) {
+    const id = ctx.params.id
+    let userdata = await UserModel.findById(id);
+    if(ctx.method === 'GET'){
+      await ctx.render("edituser",userdata);
+      return;
+    }
+    let editdata = ctx.request.body;
+    let edit = await UserModel.findByIdAndUpdate(id,editdata);
+    if(edit){
+      ctx.flash = {
+        success: '修改用户成功'
+      }
+      ctx.redirect('/userlist')
+    }else{
+      ctx.throw('修改失败')
+    }
+
+  },
+  async exportExcel(ctx, next) {
+    let userdata = await UserModel.find({});
+    let alldata = [];
+    let row = ['id','姓名','邮箱','是否管理员'];
+    alldata.push(row)
+    for (let key in userdata) {
+      let arr = [];
+      arr.push(userdata[key].id);
+      arr.push(userdata[key].name);
+      arr.push(userdata[key].email);
+      arr.push(userdata[key].isAdmin);
+      
+      alldata.push(arr)
+    }
+      var buffer = xlsx.build([{
+        name: "mySheetName",
+        data: alldata
+      }]);
+    fs.writeFileSync('./test.xlsx', buffer);
+    ctx.flash = {
+      success: '导出成功'
+    };
+    ctx.redirect('/userlist')
   }
+
 }

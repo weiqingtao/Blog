@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # node-blog  
 
 [![License](https://img.shields.io/github/license/liuxing/abc-blog.svg)](https://github.com/liuxing/abc-blog/blob/master/LICENSE) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg) ](http://standardjs.com)  
@@ -141,7 +140,3 @@ $ npm run dev
 本作品采用[知识共享 署名-非商业性使用 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc/4.0/) 进行许可。
 
 [![知识共享许可协议](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
-=======
-# Blog
-博客写书
->>>>>>> 26bf3599dcf959b06068b7a305e5ffe440d16587

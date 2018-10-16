@@ -5,6 +5,7 @@
     <div class="columns">
         <div class="column is-8 is-offset-2">
                 <a href="/user/new" class="button is-small is-primary">新建用户</a>
+                <a href="/userlist/exportExcel" class="button is-small is-primary">导出Excel</a>
             <table class="table margin-top is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                 <thead>
                     <tr>
@@ -23,6 +24,7 @@
                         <td>{{user.email}}</td>
                         <td>{{user.isAdmin}}</td>
                         <td>
+                            <a href="/user/{{user._id}}/edit" class="button is-small is-danger">修改</a>
                             <a href="/user/{{user._id}}/delete" class="button is-small is-danger">删除</a>
                         </td>
                     </tr>

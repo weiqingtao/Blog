@@ -1,7 +1,7 @@
 const PostModel = require('../models/post')
 const CommentModel = require('../models/comment')
 const CategoryModel = require('../models/category')
-
+var qr_image = require('qr-image');
 module.exports = {
   async index (ctx, next) {
     const pageSize = 5
