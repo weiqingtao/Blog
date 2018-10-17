@@ -47,7 +47,7 @@ module.exports = {
   },
   async list(ctx, next) {
     const pageSize = 5
-    const cname = 'd'
+    const cname = 'd';
     const currentPage = parseInt(ctx.query.page) || 1
     const allPostsCount = await UserModel.find({}).count()
     const pageCount = Math.ceil(allPostsCount / pageSize)
