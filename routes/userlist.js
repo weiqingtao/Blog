@@ -46,7 +46,6 @@ module.exports = {
     ctx.redirect('/userlist');
   },
   async list(ctx, next) {
-    // const users = await UserModel.find({}).skip(0).limit(5);
     const pageSize = 5
     const cname = 'd'
     const currentPage = parseInt(ctx.query.page) || 1
