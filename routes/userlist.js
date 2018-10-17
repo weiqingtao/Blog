@@ -126,11 +126,7 @@ module.exports = {
       alldata.push(arr)
     }
       var buffer = xlsx.build([{
-<<<<<<< HEAD
-        name: "data",
-=======
         name: "mySheetName",
->>>>>>> f507bcc92d64915647a85facb9f5916120524b86
         data: alldata
       }]);
     fs.writeFileSync('./test.xlsx', buffer);
